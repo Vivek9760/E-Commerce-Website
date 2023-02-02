@@ -15,10 +15,28 @@
     display: inline-block;
     overflow: hidden;
 }
-.space1{
+.img-container{
     height: 100%;
-    width: 4%;
+    width: 2%;
     display: inline-block;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.img-main-container{
+    /* border: 1px solid white; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    /* border: 1px solid white; */
+    height: 50%;
+    width: 100%;
+    border-radius: 20px;
+    filter: invert(1);
 }
 
 .space2{
@@ -69,9 +87,11 @@
     text-decoration: none;
 }
 
+
+
 @media only screen and (max-width:670px){
-    .space1{
-        width: 2%;
+    .icon{
+        display: none;
     }
     .space2{ 
         width: 5%;
@@ -105,6 +125,9 @@
 }
 
 @media only screen and (max-width:480px){
+    .icon{
+        display: none;
+    }
     #btn1{
         font-size: 0.280rem;           
     }

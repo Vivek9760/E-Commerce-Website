@@ -6,16 +6,18 @@ function Navbar(){
     return(
         
         <div className="container">
-        <div className='space1'>
-            
+        <div className='img-container'>
+            <div className="img-main-container">
+            <img className='icon' src={require("./NavbarIcon.png")} alt="Icon" />
+            </div>
         </div>
          <div className='container_2'>
          <div className='heading-container'>
                 <ButtonGroup variant='outlined' size='small' color='success'>
                     <Link className='link' to="/"><Button id="h1" variant='contained' >Heading 1</Button></Link>
-                    <Link className='link' to="/"><Button id="h2" >Heading 4</Button></Link>
-                    <Link className='link' to="/"><Button id="h3" >Heading 2</Button></Link>
-                    <Link className='link' to="/"><Button id="h4" >Heading 3</Button></Link>
+                    <Link className='link' to="/"><Button id="h2" >Heading 2</Button></Link>
+                    <Link className='link' to="/"><Button id="h3" >Heading 3</Button></Link>
+                    <Link className='link' to="/"><Button id="h4" >Heading 4</Button></Link>
                 </ButtonGroup>
             </div>
          </div>

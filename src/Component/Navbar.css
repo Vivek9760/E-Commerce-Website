@@ -101,9 +101,9 @@
     }
 }
 
-@media only screen and (max-width:670px){
+@media only screen and (max-width:480px){
     #btn1{
-        font-size: 0.280rem;            
+        font-size: 0.280rem;           
     }
     #btn2{
         font-size: 0.280rem;

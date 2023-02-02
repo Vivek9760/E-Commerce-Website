@@ -65,6 +65,9 @@
     overflow: hidden;
 }
 
+.link{
+    text-decoration: none;
+}
 
 @media only screen and (max-width:670px){
     .space1{

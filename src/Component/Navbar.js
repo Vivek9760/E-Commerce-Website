@@ -13,11 +13,11 @@ function Navbar(){
         </div>
          <div className='container_2'>
          <div className='heading-container'>
-                <ButtonGroup variant='outlined' size='small' color='success'>
-                    <Link className='link' to="/"><Button id="h1" variant='contained' >Heading 1</Button></Link>
-                    <Link className='link' to="/"><Button id="h2" >Heading 2</Button></Link>
-                    <Link className='link' to="/"><Button id="h3" >Heading 3</Button></Link>
-                    <Link className='link' to="/"><Button id="h4" >Heading 4</Button></Link>
+                <ButtonGroup variant='contained' size='small' color='warning'>
+                    <Button id="h1" ><Link className='link' to="/">Products</Link></Button>
+                    <Button id="h2" ><Link className='link' to="/">My Products</Link></Button>
+                    <Button id="h3" ><Link className='link' to="/">Wishlist</Link></Button>
+                    <Button id="h4" ><Link className='link' to="/">Profile</Link></Button>
                 </ButtonGroup>
             </div>
          </div>

@@ -4,7 +4,7 @@
     max-height: 10vh;
     position: sticky;
     width: 100%;
-    background-color: #20232a;
+    background-color: #1976d2;
     /* overflow: hidden; */
 }
 
@@ -85,6 +85,7 @@
 
 .link{
     text-decoration: none;
+    color: white;
 }
 
 

@@ -20,9 +20,11 @@ const User = mongoose.model('users',userSchema);
 
 
 app.post('/signup', async(req,res)=>{
-    const data = new User(req.body);
-    await data.save();
-    res.send(data)
+    let user = new User(req.body);
+    await user.save();
+    user = user.toObject();
+    delete user.password
+    res.send(user);
 })
 
 app.listen(5000)

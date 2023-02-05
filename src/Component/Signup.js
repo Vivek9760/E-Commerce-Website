@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
@@ -17,6 +18,7 @@ const Signup = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError,setPasswordError] = useState(false);
   const [confirmPasswordError,setConfirmPasswordError] = useState(false);
+  const navigate = useNavigate('/');
 
 
 
@@ -34,11 +36,16 @@ const Signup = () => {
         'Content-Type':'application/json'
       }
     })
+
+    data = await data.json()
+    if(data){
+    localStorage.setItem('user',JSON.stringify(data));
+    console.log(data)
     setName('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-
+    }
   } 
   else{
     if(name===""){
@@ -66,6 +73,13 @@ const Signup = () => {
 
   }
 }
+
+useEffect(()=>{
+  const auth = localStorage.getItem('user');
+  if(auth){
+    navigate('/');
+  }
+})
 
 
   return (

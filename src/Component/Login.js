@@ -34,6 +34,9 @@ const Login = () => {
         navigate('/')
         setEmail('');
       setPassword('');
+      }else{
+        setEmailR('Check your email & password '); setEmailError(true);
+         setPasswordError(true);
       }
   
     }

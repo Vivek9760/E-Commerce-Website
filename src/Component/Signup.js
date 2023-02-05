@@ -84,21 +84,22 @@ useEffect(()=>{
 
   return (
     <>
+    
     <div className='Login-container'>
         <h1>Sign up</h1>
       <Container fixed variant="outlined" id="Login-main-container">
         <div className="main-container">
         <div className="text-field-container2">
-        <TextField  value={name} helperText={nameR} error={nameError} onChange={(e)=>{setName(e.target.value);}} color="info" label="Enter your name" />
+        <TextField  value={name}size="small" helperText={nameR} error={nameError} onChange={(e)=>{setName(e.target.value);}} label="Enter your name" />
         </div>
         <div className="text-field-container2">
-        <TextField color="info"  helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
+        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container2">
-        <TextField color="info"  helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type="password" />
+        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type="password" />
         </div>
         <div className="text-field-container2">
-        <TextField color="info"  helperText={confirmPasswordR} error={confirmPasswordError} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} label="Confirm password" type="password" />
+        <TextField size="small" helperText={confirmPasswordR} error={confirmPasswordError} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} label="Confirm password" type="password" />
         </div>
         <div className="text-btn-container">
         <Button variant="contained" onClick={saveUserInfo} size="large">Sign up</Button>

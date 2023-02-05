@@ -1,8 +1,53 @@
+import { useState } from "react";
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const [email, setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError,setPasswordError] = useState(false);
+  const [emailR, setEmailR] = useState('');
+  const [passwordR,setPasswordR] = useState('');
+
+  const navigate = useNavigate()
+
+  const LogIn = async() => {
+    if(email.length>0 && password.length>0){
+
+      let result = await fetch("http://localhost:5000/login",{
+        method:'post',
+        body:JSON.stringify({email,password}),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+      result = await result.json();
+      console.log(result);
+      if(result){
+        localStorage.setItem('user',JSON.stringify(result));
+        navigate('/products')
+        setEmail('');
+      setPassword('');
+      }
+  
+    }
+    else{
+      if(email===""){
+        setEmailR('*Required Field');
+        setEmailError(true);
+      }else{setEmailR('');  setEmailError(false);}
+  
+      if(password===""){
+        setPasswordR('*Required Field');
+        setPasswordError(true);
+      }else{setPasswordR(''); setPasswordError(false);}
+    }
+  }
+
   return (
     <>
     <div className='Login-container'>
@@ -10,13 +55,13 @@ const Login = () => {
       <Container fixed variant="outlined" id="Login-main-container">
         <div className="main-container">
         <div className="text-field-container">
-        <TextField id="login-textfield-one" color="info" label="Enter your e-mail" />
+        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container">
-        <TextField color="info" label="Enter your password" type="password" />
+        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type="password" />
         </div>
         <div className="text-btn-container">
-        <Button variant="contained" size="large">Log In</Button>
+        <Button variant="contained" onClick={LogIn} size="large">Log In</Button>
         </div>
         </div>
       </Container>

@@ -27,6 +27,17 @@ app.post('/signup', async(req,res)=>{
     res.send(user);
 })
 
+app.post('/login',async(req,res)=>{
+    let data =await User.findOne(req.body);
+    if(data){
+    data = data.toObject();
+    delete data.password
+    res.send(data);}
+    else{
+        res.send(false)
+    }
+})
+
 app.listen(5000)
 
 

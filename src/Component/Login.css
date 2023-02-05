@@ -35,10 +35,6 @@ h1{
     margin: 15px;
 }
 
-.text-field-container2{
-    margin: 15px;
-}
-
 .text-btn-container{
     margin: 25px;
 }
@@ -49,5 +45,15 @@ h1{
     text-align: center;
     min-width: 250px;
     
+}
+
+.showPassword{
+    position: absolute;
+    padding: 7.8px;
+    margin-left: -38px;
+    opacity: 0.6;
+    /* border: 1px #6c6b6b solid;
+    border-radius: 100px; */
+   
 }
 

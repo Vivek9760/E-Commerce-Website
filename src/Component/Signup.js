@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Signup = () => {
 
@@ -18,6 +19,8 @@ const Signup = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError,setPasswordError] = useState(false);
   const [confirmPasswordError,setConfirmPasswordError] = useState(false);
+  const [showPassword,setShowPassword]=useState(false);
+  const [showConfirmPassword,setShowConfirmPassword]=useState(false);
   const navigate = useNavigate('/');
 
 
@@ -91,6 +94,7 @@ const Signup = () => {
   }
 }
 
+
 useEffect(()=>{
   const auth = localStorage.getItem('user');
   if(auth){
@@ -113,10 +117,12 @@ useEffect(()=>{
         <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container">
-        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type="password" />
+        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password"  type={showPassword?"text":"password"} />
+        {showPassword?<VisibilityOff className='showPassword' onClick={()=>{setShowPassword(false)}} />:<Visibility className='showPassword' onClick={()=>{setShowPassword(true)}} />}
         </div>
         <div className="text-field-container">
-        <TextField size="small" helperText={confirmPasswordR} error={confirmPasswordError} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} label="Confirm password" type="password" />
+        <TextField size="small" helperText={confirmPasswordR} error={confirmPasswordError} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} label="Confirm password" type={showConfirmPassword?"text":"password"} />
+        {showConfirmPassword?<VisibilityOff className='showPassword' onClick={()=>{setShowConfirmPassword(false)}} />:<Visibility className='showPassword' onClick={()=>{setShowConfirmPassword(true)}} />}
         </div>
         <div className="text-btn-container">
         <Button variant="contained" onClick={saveUserInfo} size="large">Sign up</Button>

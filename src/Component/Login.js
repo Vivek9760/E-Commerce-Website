@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TextField, Container, Button } from "@mui/material";
+import {Visibility, VisibilityOff} from '@mui/icons-material'
 import Footer from "./Footer";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ const Login = () => {
   const [passwordError,setPasswordError] = useState(false);
   const [emailR, setEmailR] = useState('');
   const [passwordR,setPasswordR] = useState('');
+  const [showPassword,setShowPassword]=useState(false);
 
   const navigate = useNavigate()
 
@@ -58,7 +60,8 @@ const Login = () => {
         <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container">
-        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type="password" />
+        <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password" type={showPassword?'text':'password'} />
+        {showPassword?<VisibilityOff className='showPassword' onClick={()=>{setShowPassword(false)}} />:<Visibility className='showPassword' onClick={()=>{setShowPassword(true)}} />}
         </div>
         <div className="text-btn-container">
         <Button variant="contained" onClick={LogIn} size="large">Log In</Button>

@@ -11,7 +11,7 @@ function App() {
    <Navbar />
    <Routes>
     <Route element={<PrivateComponent />}>
-    <Route path='/products' element={<h1>Products</h1>} />
+    <Route path='/' element={<h1>Products</h1>} />
     <Route path='/myproducts' element={<h1>My Products</h1>} />
     <Route path='/wishlist' element={<h1>Wishlist</h1>} />
     <Route path='/profile' element={<h1>Profile</h1>} />

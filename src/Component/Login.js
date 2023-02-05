@@ -24,12 +24,12 @@ const Login = () => {
         headers:{
           'Content-Type':'application/json'
         }
-      })
+      });
       result = await result.json();
       console.log(result);
       if(result){
         localStorage.setItem('user',JSON.stringify(result));
-        navigate('/products')
+        navigate('/')
         setEmail('');
       setPassword('');
       }

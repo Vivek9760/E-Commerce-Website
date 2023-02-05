@@ -24,7 +24,7 @@ function Navbar(){
          <div className='container_2'>
          <div className='heading-container'>
                 <ButtonGroup variant='contained' size='small' color='warning'>
-                    <Button id="h1" ><Link className='link' to="/products">Products</Link></Button>
+                    <Button id="h1" ><Link className='link' to="/">Products</Link></Button>
                     <Button id="h2" ><Link className='link' to="/myProducts">My Products</Link></Button>
                     <Button id="h3" ><Link className='link' to="/wishlist">Wishlist</Link></Button>
                     <Button id="h4" color='error' onClick={LogOut}>Logout</Button>

@@ -27,6 +27,16 @@ const Signup = () => {
   const saveUserInfo = async() => {
     if(name.length>0 && email.length>0 && password.length>0 && confirmPassword.length>0 && password === confirmPassword ){
     
+      let result = await fetch("http://localhost:5000/login",{
+        method:'post',
+        body:JSON.stringify({email}),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      });
+      result = await result.json();
+      if(!result){
+      console.log(result.email);
     console.log(name,email,password,confirmPassword);
 
     let data = await fetch("http://localhost:5000/signup",{
@@ -44,7 +54,14 @@ const Signup = () => {
     setName('');
     setEmail('');
     setPassword('');
-    setConfirmPassword('');
+    setConfirmPassword('');}
+  }
+    else{
+      console.log(result.email);
+      setEmailR('Email already in use'); setEmailError(true);
+      setNameR(''); setNameError(false);
+      setPasswordR(''); setPasswordError(false);
+      setConfirmPasswordR(''); setConfirmPasswordError(false);
     }
   } 
   else{

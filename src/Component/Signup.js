@@ -123,7 +123,7 @@ useEffect(()=>{
         <TextField  value={name}size="small" helperText={nameR} error={nameError} onChange={(e)=>{setName(e.target.value);}} label="Enter your name" />
         </div>
         <div className="text-field-container">
-        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail(e.target.value)}} label="Enter your email" type="email" />
+        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail((e.target.value).toLowerCase())}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container">
         <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password"  type={showPassword?"text":"password"} />

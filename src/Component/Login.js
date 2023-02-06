@@ -77,7 +77,7 @@ const Login = () => {
                 error={emailError}
                 value={email}
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setEmail((e.target.value).toLowerCase());
                 }}
                 label="Enter your email"
                 type="email"

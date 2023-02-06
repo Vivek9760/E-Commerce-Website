@@ -1,5 +1,5 @@
 
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Logout, Login,AppRegistration } from '@mui/icons-material';
 import { Button, ButtonGroup } from '@mui/material'
 import { Link,useNavigate } from 'react-router-dom'
 import './Navbar.css'
@@ -8,7 +8,7 @@ function Navbar(){
 
     const auth = localStorage.getItem('user');
     const navigate = useNavigate();
-    const LogOut = ()=>{
+    const LogOutUser = ()=>{
         localStorage.clear();
         navigate('/signup');
     }
@@ -27,7 +27,7 @@ function Navbar(){
                     <Button id="h1" ><Link className='link' to="/">Products</Link></Button>
                     <Button id="h2" ><Link className='link' to="/myProducts">My Products</Link></Button>
                     <Button id="h3" ><Link className='link' to="/wishlist">Wishlist</Link></Button>
-                    <Button id="h4" color='error' onClick={LogOut}>Logout</Button>
+                    <Button id="h4" endIcon={<Logout id="logout" />} color='error' onClick={LogOutUser}>Logout</Button>
                 </ButtonGroup>
             </div>
          </div>
@@ -44,10 +44,10 @@ function Navbar(){
                 :
             <div className='btn-container'>
                 <div className='btn-main-container'>
-               <Link className='link' to="/signup"><Button id="btn1" size='small' color='error' variant='contained'> Sign up </Button></Link>
+               <Link className='link' to="/signup"><Button id="btn1" size='small' startIcon={<AppRegistration id='signup'/>} color='error' variant='contained'> Sign up </Button></Link>
                 </div>
                 <div className='btn-main-container'>
-                <Link className='link' to="/login"><Button id="btn2" size='small' color='error' variant='contained'>Log In</Button></Link>
+                <Link className='link' to="/login"><Button id="btn2" startIcon={<Login id="login" />} size='small' color='error' variant='contained'>Log In</Button></Link>
                 </div>
             </div>
             }

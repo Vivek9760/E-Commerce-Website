@@ -57,3 +57,17 @@ h1{
    
 }
 
+.text-deleteBtn-container{
+    position: absolute;
+    bottom: 8%;
+    right: 1%;
+}
+
+
+@media only screen and (max-height:500px) {
+    .text-deleteBtn-container{
+    display: none;
+    }
+}
+
+

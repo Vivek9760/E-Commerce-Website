@@ -95,6 +95,16 @@
     color: white;
 }
 
+@media only screen and (max-width:810px){
+
+    #btn2{
+        font-size: 0.488rem;
+    }
+    #btn1{
+        font-size: 0.480rem;
+        /* padding: 2px 4px;             */
+    }
+}
 
 
 @media only screen and (max-width:670px){
@@ -115,12 +125,12 @@
         padding: 2px 4px;            
     }
     #btn1{
-        font-size: 0.580rem;
-        padding: 2px 4px;            
+        font-size: 0.400rem;
+        /* padding: 2px 4px;             */
     }
     #btn2{
-        font-size: 0.580rem;
-        padding: 2px 4px;
+        font-size: 0.400rem;
+        /* padding: 2px 4px; */
     }
     #h1{
         font-size: 0.580rem;
@@ -158,4 +168,28 @@
     #h4{
         font-size: 0.280rem;
     }
+    #logout{
+        display: none;
+        }
+
+    #login{
+        display: none;
+        }
+    
+    #signup{
+        display: none;
+    
+    }
+}
+
+
+#login{
+    font-size: 15px;
+    /* border: 1px solid black; */
+    
+}
+
+#signup{
+    font-size: 15px;
+
 }

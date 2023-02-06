@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
@@ -23,9 +23,25 @@ const AddProduct = () => {
   const navigate = useNavigate('/');
 
 
-const addProduct =()=>{
+const addProduct = async()=>{
     if(name.length>0 && category.length>0 && company.length>0 && price.length>0){
-            console.log(name,category,company,price)
+        const userId = JSON.parse(localStorage.getItem('user'))._id;
+        console.log(userId)
+        let product = await fetch("http://localhost:5000/addproduct",{
+            method:'post',
+            body:JSON.stringify({name,category,company,price,userId}),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }) ;
+
+        product = await product.json()
+        if(product){
+            console.log(product); 
+            navigate('/myproducts')           
+        }else{
+            alert("Something Wrong !!!")
+        }
     }
     else{
         if(name===""){

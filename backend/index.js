@@ -38,6 +38,15 @@ app.post('/login',async(req,res)=>{
     }
 })
 
+app.delete('/delete/:id',async(req,res)=>{
+    let data = await User.deleteOne({_id:req.params.id});
+    if(data.deletedCount>0){
+    res.send(true);
+    }else{
+        res.send(false);
+    }
+})
+
 app.listen(5000)
 
 

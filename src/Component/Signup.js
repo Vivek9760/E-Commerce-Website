@@ -41,7 +41,7 @@ const Signup = () => {
       result = await result.json();
       if(!result){
       console.log(result.email);
-    console.log(name,email,password,confirmPassword);
+    console.log(name.length,email,password,confirmPassword);
 
     let data = await fetch("http://localhost:5000/signup",{
       method:'post',
@@ -120,10 +120,10 @@ useEffect(()=>{
       <Container fixed variant="outlined" id="Login-main-container">
         <div className="main-container">
         <div className="text-field-container">
-        <TextField  value={name}size="small" helperText={nameR} error={nameError} onChange={(e)=>{setName(e.target.value);}} label="Enter your name" />
+        <TextField  value={name}size="small" helperText={nameR} error={nameError} onChange={(e)=>{setName((e.target.value).trimStart());}} label="Enter your name" />
         </div>
         <div className="text-field-container">
-        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail((e.target.value).toLowerCase())}} label="Enter your email" type="email" />
+        <TextField size="small" helperText={emailR} error={emailError} value={email}  onChange={(e)=>{setEmail((e.target.value).toLowerCase().trimStart())}} label="Enter your email" type="email" />
         </div>
         <div className="text-field-container">
         <TextField size="small" helperText={passwordR} error={passwordError} value={password} onChange={(e)=>{setPassword(e.target.value)}} label="Enter password"  type={showPassword?"text":"password"} />

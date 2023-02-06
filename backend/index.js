@@ -18,6 +18,15 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('users',userSchema);
 
+const productSchema = new mongoose.Schema({
+    name:String,
+    category:String,
+    company:String,
+    price:String,
+    userId:String
+})
+
+const Product = mongoose.model('products',productSchema);
 
 app.post('/signup', async(req,res)=>{
     let user = new User(req.body);
@@ -44,6 +53,18 @@ app.delete('/delete/:id',async(req,res)=>{
     res.send(true);
     }else{
         res.send(false);
+    }
+})
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+app.post('/addproduct',async(req,res)=>{
+    let data = new Product(req.body);
+    await data.save();
+    if(data){
+    res.send(data);}
+    else{
+        res.send(false)
     }
 })
 

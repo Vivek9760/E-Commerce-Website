@@ -4,6 +4,7 @@ import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { isEmail } from 'validator';
 
 const Signup = () => {
 
@@ -29,7 +30,7 @@ const Signup = () => {
 
   const saveUserInfo = async() => {
     if(name.length>0 && email.length>0 && password.length>0 && confirmPassword.length>0 && password === confirmPassword ){
-    
+      if (isEmail(email)) {
       let result = await fetch("http://localhost:5000/login",{
         method:'post',
         body:JSON.stringify({email}),
@@ -66,6 +67,14 @@ const Signup = () => {
       setPasswordR(''); setPasswordError(false);
       setConfirmPasswordR(''); setConfirmPasswordError(false);
     }
+  }else {
+    setEmailR("Enter a Valid Email");
+    setEmailError(true);
+    setPasswordR("");
+    setPasswordError(false);
+    setConfirmPasswordR(''); setConfirmPasswordError(false);
+    setNameR(''); setNameError(false);
+  }
   } 
   else{
     if(name===""){

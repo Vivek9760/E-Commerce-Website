@@ -104,13 +104,13 @@
         font-size: 0.480rem;
         /* padding: 2px 4px;             */
     }
+    .icon{
+        display: none;
+    }
 }
 
 
 @media only screen and (max-width:670px){
-    .icon{
-        display: none;
-    }
     .space2{ 
         width: 5%;
     }

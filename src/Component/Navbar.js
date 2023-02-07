@@ -27,7 +27,7 @@ function Navbar(){
                     <Button id="h1" ><Link className='link' to="/">Products</Link></Button>
                     <Button id="h2" ><Link className='link' to="/myProducts">My Products</Link></Button>
                     <Button id="h3" ><Link className='link' to="/wishlist">Wishlist</Link></Button>
-                    <Button id="h4" endIcon={<Logout id="logout" />} color='error' onClick={LogOutUser}>Logout</Button>
+                    <Button id="h4" endIcon={<Logout id="logout" />} disabled={auth?false:true} color='error' onClick={LogOutUser}>Logout</Button>
                 </ButtonGroup>
             </div>
          </div>

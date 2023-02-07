@@ -2,7 +2,8 @@
 /* border: 2px solid black; */
 width: 100vw;
 min-height: 81.1vh;
-height: 84.3vh;
+height: 85vh;
+overflow: auto;
 }
 
 .card-main-container{
@@ -19,7 +20,7 @@ height: 84.3vh;
     border-radius: 15px;
     margin: 5px;
     padding: 2;
-    height: 180px;
+    height: 165px;
     position: relative;
 }
 
@@ -31,17 +32,20 @@ padding: 2px 10px;
 .p1{
     margin: 0;
     padding: 0;
-    color: white;
+    margin-top: 10px;
+    font-weight: bold;
+    color: rgb(83, 59, 141);
 }
 
 .name{
 /* border: 1px solid black; */
 text-align: center;
+margin-top: 2px;
 
 }
 .p2{
-   margin: 15px 0px;
-    
+/* border: 1px solid black; */
+   margin: 8px 0px;
 }
 
 .company{
@@ -59,8 +63,17 @@ text-align: right;
 text-align: center;
 }
 .p4{
-    color: #1B5E20;
+    margin: 0;
+    margin-top: 5px;
     margin-bottom: 10px;
+    /* border: 2px solid green; */
+}
+.mailto{
+    color: #1B5E20;
+    text-decoration: none;
+    margin: 0;
+    /* border: 2px solid black;s */
+
 }
 
 
@@ -101,7 +114,29 @@ text-align: center;
     /* border: 2px solid red; */
    position: absolute;
    top: 8px;
-   right: 10px;
+   right: 30px;
    color: rgb(155, 12, 217);
    cursor: pointer;
+}
+
+#sell-icon{
+    position: absolute;
+   top: 8px;
+   right: 5px;
+}
+
+#delete-icon{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: #07abcc;
+    cursor: pointer;
+}
+
+#update-icon{
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    color: #1B5E20;
+    cursor: pointer;
 }

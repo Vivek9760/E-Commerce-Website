@@ -68,6 +68,16 @@ app.post('/addproduct',async(req,res)=>{
     }
 })
 
+app.get('/myproduct/:userId',async(req,res)=>{
+    let data = await Product.find({userId:req.params.userId});
+    if(data){
+    res.send(data)}
+    else{
+        res.send(false);
+    }
+
+})
+
 app.listen(5000)
 
 

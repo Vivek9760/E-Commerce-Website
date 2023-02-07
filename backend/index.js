@@ -23,7 +23,8 @@ const productSchema = new mongoose.Schema({
     category:String,
     company:String,
     price:String,
-    userId:String
+    userId:String,
+    userEmail:String
 })
 
 const Product = mongoose.model('products',productSchema);

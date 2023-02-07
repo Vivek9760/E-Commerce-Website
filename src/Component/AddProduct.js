@@ -26,10 +26,11 @@ const AddProduct = () => {
 const addProduct = async()=>{
     if(name.length>0 && category.length>0 && company.length>0 && price.length>0){
         const userId = JSON.parse(localStorage.getItem('user'))._id;
+        const userEmail = JSON.parse(localStorage.getItem('user')).email;
         console.log(userId)
         let product = await fetch("http://localhost:5000/addproduct",{
             method:'post',
-            body:JSON.stringify({name,category,company,price,userId}),
+            body:JSON.stringify({name,category,company,price,userId,userEmail}),
             headers:{
                 'Content-Type':'application/json'
             }

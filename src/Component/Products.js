@@ -26,7 +26,6 @@ const Products = () =>{
             data = await data.json();
             if(data){
            data = data.filter((item)=>{
-                item.email = "vivek"
                 return(item.userId!==id);
             })
             console.log(data)
@@ -68,13 +67,14 @@ const Products = () =>{
                 <div className="category"><p className="p1">{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2">{item.name}</h3></div>
                 <div className="company">{fav?<Favorite titleAccess="Remove from the wishlist" onClick={toggleWishlist} id="wishlist-Icon" />:<FavoriteBorder titleAccess="Add to wishlist" onClick={toggleWishlist} id="wishlist-Icon" />}<p className="p3">{item.category}</p></div>
-                <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.email}`}>{item.email}</a></h5></div>
+                <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.userEmail}`}>{item.userEmail}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5">{item.price}</h3></div>
                 <Sell id="sell-icon" />
                 </div>
             </div>
             </Grid>)}
-) : <></>}
+) : <Grid item  lg={2} md={3} sm={4} xs={6}> <div className="card">
+    <div className="name"><h1 className="p2">No Product Available</h1></div></div></Grid>}
         </Grid>
         </div>
         </div>

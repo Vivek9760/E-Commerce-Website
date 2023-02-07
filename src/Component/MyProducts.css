@@ -1,16 +1,24 @@
 .card-container{
 /* border: 2px solid black; */
+background-color: rgb(204, 224, 241);
 width: 100vw;
 min-height: 81.1vh;
 height: 85vh;
 overflow: auto;
 }
 
+.search-container{
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
+    /* border: 1px solid black; */
+}
+
 .card-main-container{
     /* border: 2px solid red; */
-    margin: 20px;
-    min-height: 81.1vh;
-    height: 84.3vh;
+    margin: 10px;
+    min-height: 75vh;
+    height: 75vh;
 }
 
 .card{

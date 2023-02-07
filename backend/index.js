@@ -68,8 +68,8 @@ app.post('/addproduct',async(req,res)=>{
     }
 })
 
-app.get('/myproduct/:userId',async(req,res)=>{
-    let data = await Product.find({userId:req.params.userId});
+app.get('/myproduct/:_id',async(req,res)=>{
+    let data = await Product.find({userId:req.params._id});
     if(data){
     res.send(data)}
     else{
@@ -102,6 +102,16 @@ app.put('/updateProduct/:id',async(req,res)=>{
     })
 
     res.send(data);
+})
+
+app.get('/products',async(req,res)=>{
+    let data = await Product.find();
+    if(data){
+    res.send(data)}
+    else{
+        res.send(false);
+    }
+
 })
 
 app.listen(5000)

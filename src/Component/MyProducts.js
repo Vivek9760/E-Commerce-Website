@@ -69,11 +69,11 @@ const MyProducts = () =>{
     return(
             <Grid key={item._id} item lg={2} md={3} sm={4} xs={6}> 
             <div className="card">
-                <div className="category"><p className="p1">{(item.company).toUpperCase()}</p></div>
-                <div className="name"><h3 className="p2">{item.name}</h3></div>
-                <div className="company">{fav?<Favorite titleAccess="Remove from the wishlist" onClick={toggleWishlist} id="wishlist-Icon" />:<FavoriteBorder titleAccess="Add to wishlist" onClick={toggleWishlist} id="wishlist-Icon" />}<p className="p3">{item.category}</p></div>
+                <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
+                <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>
+                <div className="company">{fav?<Favorite titleAccess="Remove from the wishlist" onClick={toggleWishlist} id="wishlist-Icon" />:<FavoriteBorder titleAccess="Add to wishlist" onClick={toggleWishlist} id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${email}`}>{email}</a></h5></div>
-                <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5">{item.price}</h3></div>
+                <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5" title={item.price}>{item.price}</h3></div>
                 <Sell id="sell-icon" />
                 <Delete titleAccess="Delete Product" onClick={()=>{deleteProduct(item._id)}} id="delete-icon" />
                 <DriveFileRenameOutline titleAccess="Update Product" onClick={()=>{navigate(`/updateProduct/${item._id}`)}} id="update-icon" />

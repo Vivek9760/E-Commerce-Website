@@ -60,7 +60,7 @@ const Products = () =>{
         <Grid id="c1" spacing={2} container>
 {productList.length>0 ? productList.map((item)=>{
     return(
-            <Grid key={item._id} item lg={2} md={3} sm={4} xs={6}> 
+            <Grid key={item._id} item lg={3} md={4} sm={5} xs={8}> 
             <div className="card">
                 <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>

@@ -88,6 +88,22 @@ app.delete('/deleteProduct/:id', async(req,res)=>{
     res.send(data)
 })
 
+app.get('/getProduct/:id',async(req,res)=>{
+    let data = await Product.findOne({_id:req.params.id});
+    res.send(data);
+})
+
+app.put('/updateProduct/:id',async(req,res)=>{
+    let data = await Product.updateOne({_id:req.params.id},{
+        name:req.body.name,
+        category:req.body.category,
+        company:req.body.company,
+        price:req.body.price
+    })
+
+    res.send(data);
+})
+
 app.listen(5000)
 
 

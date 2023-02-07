@@ -55,7 +55,7 @@ const MyProducts = () =>{
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5">{item.price}</h3></div>
                 <Sell id="sell-icon" />
                 <Delete titleAccess="Delete Product" onClick={()=>{deleteProduct(item._id)}} id="delete-icon" />
-                <DriveFileRenameOutline titleAccess="Update Product" id="update-icon" />
+                <DriveFileRenameOutline titleAccess="Update Product" onClick={()=>{navigate(`/updateProduct/${item._id}`)}} id="update-icon" />
                 </div>
             </div>
             </Grid>)}

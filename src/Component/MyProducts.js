@@ -32,6 +32,12 @@ const MyProducts = () =>{
         getProductList();
     })
 
+    const deleteProduct = async(id) =>{
+        await fetch(`http://localhost:5000/deleteProduct/${id}`,{
+          method : 'delete'
+        })
+    }
+
 
     return(<>
         <div className="card-container">
@@ -48,7 +54,7 @@ const MyProducts = () =>{
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${email}`}>{email}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5">{item.price}</h3></div>
                 <Sell id="sell-icon" />
-                <Delete titleAccess="Delete Product" id="delete-icon" />
+                <Delete titleAccess="Delete Product" onClick={()=>{deleteProduct(item._id)}} id="delete-icon" />
                 <DriveFileRenameOutline titleAccess="Update Product" id="update-icon" />
                 </div>
             </div>

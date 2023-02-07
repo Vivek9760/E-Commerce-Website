@@ -78,6 +78,16 @@ app.get('/myproduct/:userId',async(req,res)=>{
 
 })
 
+app.delete('/deleteProducts/:id', async(req,res)=>{
+    let data = await Product.deleteMany({userId:req.params.id});
+    res.send(data)
+})
+
+app.delete('/deleteProduct/:id', async(req,res)=>{
+    let data = await Product.deleteOne({_id:req.params.id});
+    res.send(data)
+})
+
 app.listen(5000)
 
 

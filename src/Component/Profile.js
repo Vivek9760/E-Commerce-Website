@@ -17,6 +17,9 @@ const Profile = () => {
         const result = await fetch(`http://localhost:5000/delete/${id}`,{
             method:'delete'
         });
+         await fetch(`http://localhost:5000/deleteProducts/${id}`,{
+          method : 'delete'
+        })
 
     if(result){
         setOpen(true);

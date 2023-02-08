@@ -37,7 +37,7 @@ const UpdateProduct = ()=>{
 
     useEffect(()=>{
         getProductData();
-    },[ ])
+    },[])
   
   const updateProduct = async()=>{
       if(name.length>0 && category.length>0 && company.length>0 && price.length>0){

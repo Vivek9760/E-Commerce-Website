@@ -4,38 +4,82 @@ import './MyProducts.css';
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
+
+let productsIdArray = [];
+let userIdArray = [];
 const Products = () =>{
 
     const [productList,setProductList]=useState('')
-    const [fav,setFav]=useState(false);
     const [search, setSearch] = useState('');
-
-    const toggleWishlist = ()=>{
-        setFav(!fav);
-    }
-
+    
     const startSearch = () =>{
         console.log(search)
     }
 
+    const userId = JSON.parse(localStorage.getItem('user'))._id;
     const getProductList = async() =>{
-        let id = JSON.parse(localStorage.getItem('user'))._id;
         let data = await fetch(`http://localhost:5000/products`,{method:'get'});
             data = await data.json();
             if(data){
            data = data.filter((item)=>{
-                return(item.userId!==id);
+                return(item.userId!==userId);
             })
-            // console.log(data)
             setProductList(data);
-            }
-            // console.log(productList);
-
-    }
+    }}
 
     useEffect(()=>{
         getProductList();
+        checkWishlist();
     },[])
+
+    const checkWishlist = async() => {
+        productsIdArray = [];
+        userIdArray = [];
+        let data =await fetch(`http://localhost:5000/wishlistCheck`,{
+            method:'post'
+        })
+        data =await data.json();
+        let userIdData = data.map((item)=>{
+            return (item.userId);
+        });
+        userIdArray = userIdData;
+        console.log(userIdArray)
+        data = data.map((item)=>{
+            return (item.productId);
+        });
+        productsIdArray = data
+        console.log(productsIdArray)
+    }
+
+    const addToWishlist = async(productId) =>{
+            let data = await fetch('http://localhost:5000/wishlist',{
+                method:'post',
+                body:JSON.stringify({userId,productId}),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            })
+            data = await data.json()
+            // console.log(data);
+            // productsIdArray.push(productId)
+            console.log(productsIdArray);
+            getProductList();
+        checkWishlist();
+        }
+
+    const removeFromWishlist = async(productId) =>{
+            let data = await fetch('http://localhost:5000/wishlist',{
+                method:'delete',
+                body:JSON.stringify({userId,productId}),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            })
+            data = await data.json()
+            console.log(data);
+            getProductList();
+        checkWishlist();
+    }
 
 
     return(<>
@@ -50,8 +94,8 @@ const Products = () =>{
       <InputBase
         onChange={(e)=>{setSearch((e.target.value).trimStart())}}
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search Google Maps"
-        inputProps={{ 'aria-label': 'search google maps','value':`${search}` }}
+        placeholder="Search Products"
+        inputProps={{ 'aria-label': 'search products','value':`${search}` }}
       />
       <Search onClick={startSearch}/> 
     </Paper>
@@ -59,12 +103,15 @@ const Products = () =>{
             <div className="card-main-container">
         <Grid id="c1" spacing={2} container>
 {productList.length>0 ? productList.map((item)=>{
+//    console.log(item._id);
+//    console.log(productsIdArray);
     return(
+        
             <Grid key={item._id} item lg={3} md={4} sm={5} xs={8}> 
             <div className="card">
                 <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>
-                <div className="company">{fav?<Favorite titleAccess="Remove from the wishlist" onClick={toggleWishlist} id="wishlist-Icon" />:<FavoriteBorder titleAccess="Add to wishlist" onClick={toggleWishlist} id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
+                <div className="company">{(productsIdArray.includes(item._id) && userIdArray.includes(userId))?<Favorite titleAccess="Remove from the wishlist" onClick={()=>{removeFromWishlist(item._id)}} id="wishlist-Icon" />:<FavoriteBorder onClick={()=>{addToWishlist(item._id)}} titleAccess="Add to wishlist" id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.userEmail}`}>{item.userEmail}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5" title={item.price}>{item.price}</h3></div>
                 <Sell id="sell-icon" />

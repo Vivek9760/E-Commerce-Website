@@ -137,10 +137,9 @@ app.delete('/wishlist',async(req,res)=>{
 })
 
 app.post('/wishlistCheck',async(req,res)=>{
-    let data =await Wishlist.findOne(req.body);
+    let data =await Wishlist.find();
     if(data)
-    res.send(true)
-
+    res.send(data)
     else
     res.send(false)
 })

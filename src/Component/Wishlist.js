@@ -14,11 +14,26 @@ const Wishlist = () =>{
         setFav(!fav);
     }
 
+    const userId = JSON.parse(localStorage.getItem('user'))._id;
+
     const startSearch = () =>{
         console.log(search)
     }
 
     const getWishlist = async() =>{
+
+        let data =await fetch(`http://localhost:5000/wishlistCheck`,{
+            method:'post',
+            body:JSON.stringify({userId}),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+        data =await data.json();
+        data = data.map((item)=>{
+            return item.productId;
+        })
+        console.log(data)
         
     }
 
@@ -59,10 +74,14 @@ const Wishlist = () =>{
                 <Sell id="sell-icon" />
                 </div>
             </div>
-            </Grid>)}
-) : <Grid item  lg={2} md={3} sm={4} xs={6}> <div className="card">
-    <div className="name"><h1 className="p2">Wishlist Empty</h1></div></div></Grid>}
-        </Grid>
+            </Grid>)}) 
+            : <Grid item lg={2} md={3} sm={4} xs={6}> 
+                            <div className="card">
+                                <div className="name">
+                                    <h1 className="p2">Wishlist Empty</h1>
+                                </div>
+                            </div></Grid>}
+                        </Grid>
         </div>
         </div>
         <Footer />

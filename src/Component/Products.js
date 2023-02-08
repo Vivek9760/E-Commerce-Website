@@ -50,8 +50,9 @@ const Products = () =>{
                 }
             })
             data = await data.json()
+            if(data){
             getProductList();
-        checkWishlist();
+        checkWishlist();}
         }
 
     const removeFromWishlist = async(productId) =>{
@@ -63,8 +64,10 @@ const Products = () =>{
                 }
             })
             data = await data.json()
-            getProductList();
-        checkWishlist();
+            if(data){
+                getProductList();
+            checkWishlist();
+            }
     }
 
 
@@ -93,7 +96,6 @@ const Products = () =>{
 let fav = IdArray.filter((items)=>{
  return(items.productId === item._id && items.userId === userId )
 });
-console.log(fav)
     return(
             <Grid key={item._id} item lg={3} md={4} sm={5} xs={8}> 
             <div className="card">

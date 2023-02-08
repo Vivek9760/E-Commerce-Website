@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
 
-let productsIdArray = [];
-let userIdArray = [];
-const Products = () =>{
 
+let IdArray = [];
+const Products = () =>{
+    
     const [productList,setProductList]=useState('')
     const [search, setSearch] = useState('');
     
@@ -33,22 +33,12 @@ const Products = () =>{
     },[])
 
     const checkWishlist = async() => {
-        productsIdArray = [];
-        userIdArray = [];
         let data =await fetch(`http://localhost:5000/wishlistCheck`,{
             method:'post'
         })
         data =await data.json();
-        let userIdData = data.map((item)=>{
-            return (item.userId);
-        });
-        userIdArray = userIdData;
-        console.log(userIdArray)
-        data = data.map((item)=>{
-            return (item.productId);
-        });
-        productsIdArray = data
-        console.log(productsIdArray)
+        IdArray = data;
+
     }
 
     const addToWishlist = async(productId) =>{
@@ -60,9 +50,6 @@ const Products = () =>{
                 }
             })
             data = await data.json()
-            // console.log(data);
-            // productsIdArray.push(productId)
-            console.log(productsIdArray);
             getProductList();
         checkWishlist();
         }
@@ -76,7 +63,6 @@ const Products = () =>{
                 }
             })
             data = await data.json()
-            console.log(data);
             getProductList();
         checkWishlist();
     }
@@ -103,15 +89,17 @@ const Products = () =>{
             <div className="card-main-container">
         <Grid id="c1" spacing={2} container>
 {productList.length>0 ? productList.map((item)=>{
-//    console.log(item._id);
-//    console.log(productsIdArray);
+
+let fav = IdArray.filter((items)=>{
+ return(items.productId === item._id && items.userId === userId )
+});
+console.log(fav)
     return(
-        
             <Grid key={item._id} item lg={3} md={4} sm={5} xs={8}> 
             <div className="card">
                 <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>
-                <div className="company">{(productsIdArray.includes(item._id) && userIdArray.includes(userId))?<Favorite titleAccess="Remove from the wishlist" onClick={()=>{removeFromWishlist(item._id)}} id="wishlist-Icon" />:<FavoriteBorder onClick={()=>{addToWishlist(item._id)}} titleAccess="Add to wishlist" id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
+                <div className="company">{(fav.length>0)?<Favorite titleAccess="Remove from the wishlist" onClick={()=>{removeFromWishlist(item._id)}} id="wishlist-Icon" />:<FavoriteBorder onClick={()=>{addToWishlist(item._id)}} titleAccess="Add to wishlist" id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.userEmail}`}>{item.userEmail}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5" title={item.price}>{item.price}</h3></div>
                 <Sell id="sell-icon" />

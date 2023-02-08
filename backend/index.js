@@ -30,7 +30,12 @@ const productSchema = new mongoose.Schema({
 const Product = mongoose.model('products',productSchema);
 
 const wishlistSchema = new mongoose.Schema({
+    name:String,
+    category:String,
+    company:String,
+    price:String,
     userId:String,
+    userEmail:String,
     productId:String
 })
 

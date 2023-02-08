@@ -1,5 +1,5 @@
 import { Grid, Paper,InputBase} from "@mui/material";
-import { CurrencyRupee, Menu, Search, Favorite, FavoriteBorder, Sell } from "@mui/icons-material";
+import { CurrencyRupee, Menu, Search, Favorite, Sell } from "@mui/icons-material";
 import './MyProducts.css';
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
@@ -7,21 +7,18 @@ import { useEffect, useState } from "react";
 const Wishlist = () =>{
 
     const [productList,setProductList]=useState('')
-    const [fav,setFav]=useState(false);
     const [search, setSearch] = useState('');
 
-    const toggleWishlist = ()=>{
-        setFav(!fav);
-    }
 
     const userId = JSON.parse(localStorage.getItem('user'))._id;
 
+    
     const startSearch = () =>{
         console.log(search)
     }
-
+    
     const getWishlist = async() =>{
-
+        
         let data =await fetch(`http://localhost:5000/wishlistCheck`,{
             method:'post',
             body:JSON.stringify({userId}),
@@ -30,16 +27,26 @@ const Wishlist = () =>{
             }
         })
         data =await data.json();
-        data = data.map((item)=>{
-            return item.productId;
-        })
-        console.log(data)
-        
+        setProductList(data);
     }
-
+    
     useEffect(()=>{
         getWishlist();
     },[])
+
+    const removeFromWishlist = async(productId) =>{
+        let data = await fetch('http://localhost:5000/wishlist',{
+            method:'delete',
+            body:JSON.stringify({userId,productId}),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+        data = await data.json()
+        if(data){
+            getWishlist();
+        }
+}
 
 
     return(<>
@@ -68,7 +75,7 @@ const Wishlist = () =>{
             <div className="card">
                 <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>
-                <div className="company">{fav?<Favorite titleAccess="Remove from the wishlist" onClick={toggleWishlist} id="wishlist-Icon" />:<FavoriteBorder titleAccess="Add to wishlist" onClick={toggleWishlist} id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
+                <div className="company"><Favorite titleAccess="Remove from wishlist" onClick={()=>{removeFromWishlist(item.productId)}} id="wishlist-Icon" /><p className="p3" title={item.category}>{item.category}</p></div>
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.userEmail}`}>{item.userEmail}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5" title={item.price}>{item.price}</h3></div>
                 <Sell id="sell-icon" />

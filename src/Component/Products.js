@@ -41,10 +41,17 @@ const Products = () =>{
 
     }
 
-    const addToWishlist = async(productId) =>{
+    const addToWishlist = async(obj) =>{
+        let name = obj.name;
+        let price = obj.price;
+        let category = obj.category;
+        let userEmail = obj.userEmail;
+        let company = obj.company;
+        let productId = obj._id;
+
             let data = await fetch('http://localhost:5000/wishlist',{
                 method:'post',
-                body:JSON.stringify({userId,productId}),
+                body:JSON.stringify({name,price,category,userEmail,userId,company,productId}),
                 headers:{
                     'Content-Type':'application/json'
                 }
@@ -101,7 +108,7 @@ let fav = IdArray.filter((items)=>{
             <div className="card">
                 <div className="category"><p className="p1" title={item.company}>{(item.company).toUpperCase()}</p></div>
                 <div className="name"><h3 className="p2" title={item.name}>{item.name}</h3></div>
-                <div className="company">{(fav.length>0)?<Favorite titleAccess="Remove from the wishlist" onClick={()=>{removeFromWishlist(item._id)}} id="wishlist-Icon" />:<FavoriteBorder onClick={()=>{addToWishlist(item._id)}} titleAccess="Add to wishlist" id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
+                <div className="company">{(fav.length>0)?<Favorite titleAccess="Remove from the wishlist" onClick={()=>{removeFromWishlist(item._id)}} id="wishlist-Icon" />:<FavoriteBorder onClick={()=>{addToWishlist(item)}} titleAccess="Add to wishlist" id="wishlist-Icon" />}<p className="p3" title={item.category}>{item.category}</p></div>
                 <div className="email"><h5 className="p4"><a className="mailto" href={`mailto:${item.userEmail}`}>{item.userEmail}</a></h5></div>
                 <div className="price-container"><div className="price"><CurrencyRupee id="product-price" /><h3 className="p5" title={item.price}>{item.price}</h3></div>
                 <Sell id="sell-icon" />

@@ -93,7 +93,7 @@ const Products = () =>{
         placeholder="Search Products"
         inputProps={{ 'aria-label': 'search products','value':`${search}` }}
       />
-      <Search onClick={startSearch}/> 
+      <Search id="search" onClick={startSearch}/> 
     </Paper>
     </div>
             <div className="card-main-container">

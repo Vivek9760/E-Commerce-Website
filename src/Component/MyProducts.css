@@ -156,3 +156,7 @@ overflow: hidden;
     color: #1B5E20;
     cursor: pointer;
 }
+
+#search{
+    cursor: pointer;
+}

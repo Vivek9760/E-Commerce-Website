@@ -29,6 +29,14 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('products',productSchema);
 
+const wishlistSchema = new mongoose.Schema({
+    userId:String,
+    productId:String
+})
+
+const Wishlist = mongoose.model('wishlists',wishlistSchema);
+
+
 app.post('/signup', async(req,res)=>{
     let user = new User(req.body);
     await user.save();
@@ -113,6 +121,28 @@ app.get('/products',async(req,res)=>{
         res.send(false);
     }
 
+})
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+app.post('/wishlist',async(req,res)=>{
+    let data = new Wishlist(req.body);
+    data.save();
+    res.send(data);
+})
+
+app.delete('/wishlist',async(req,res)=>{
+    let data =await Wishlist.deleteOne(req.body);
+    res.send(data)
+})
+
+app.post('/wishlistCheck',async(req,res)=>{
+    let data =await Wishlist.findOne(req.body);
+    if(data)
+    res.send(true)
+
+    else
+    res.send(false)
 })
 
 app.listen(5000)

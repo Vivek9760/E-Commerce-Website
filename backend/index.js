@@ -1,45 +1,14 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
-const url = "mongodb://127.0.0.1:27017/";
-const database = 'vivek';
 const app = express();
+require('./dbConnect');
+const User = require('./models/User');
+const Product = require('./models/Product');
+const Wishlist = require('./models/Wishlist');
 app.use(express.json());
 app.use(cors());
-mongoose.set("strictQuery", false);
 
-mongoose.connect(url+database);
 
-const userSchema = new mongoose.Schema({
-    name:String,
-    email:String,
-    password:String
-})
-
-const User = mongoose.model('users',userSchema);
-
-const productSchema = new mongoose.Schema({
-    name:String,
-    category:String,
-    company:String,
-    price:String,
-    userId:String,
-    userEmail:String
-})
-
-const Product = mongoose.model('products',productSchema);
-
-const wishlistSchema = new mongoose.Schema({
-    name:String,
-    category:String,
-    company:String,
-    price:String,
-    userId:String,
-    userEmail:String,
-    productId:String
-})
-
-const Wishlist = mongoose.model('wishlists',wishlistSchema);
 
 
 app.post('/signup', async(req,res)=>{

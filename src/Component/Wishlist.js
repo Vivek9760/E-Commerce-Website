@@ -13,8 +13,20 @@ const Wishlist = () =>{
     const userId = JSON.parse(localStorage.getItem('user'))._id;
 
     
-    const startSearch = () =>{
-        console.log(search)
+    const startSearch = async() =>{
+        if(search){
+            let data = await fetch(`http://localhost:5000/searchWishlist/${search}/${userId}`);
+            data = await data.json();
+            console.log(data.length)
+            if(data.length>0){
+                setProductList(data);
+            }
+            else if(data.length == 0){
+                setProductList('');
+            } }
+            else{
+                getWishlist();
+            }
     }
     
     const getWishlist = async() =>{

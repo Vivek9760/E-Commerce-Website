@@ -139,6 +139,20 @@ app.post('/wishlistCheck',async(req,res)=>{
     res.send(false)
 })
 
+app.get('/searchWishlist/:key/:userId', async(req,res)=>{
+    let data = await Wishlist.find({
+        $or : [
+            {name : { $regex : new RegExp(req.params.key,'i')}},
+            {comapny : { $regex : new RegExp(req.params.key,'i')}},
+            {category:{$regex: new RegExp(req.params.key,'i')}},
+            {price:{$regex: new RegExp(req.params.key,'i')}}
+           ],userId:req.params.userId
+    });
+
+    res.send(data)
+})
+
+
 app.listen(5000)
 
 

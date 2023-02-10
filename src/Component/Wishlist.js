@@ -56,7 +56,7 @@ const Wishlist = () =>{
         })
         data = await data.json()
         if(data){
-            getWishlist();
+           startSearch();
         }
 }
 

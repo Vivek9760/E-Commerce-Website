@@ -10,33 +10,50 @@ const MyProducts = () =>{
     const [productList,setProductList]=useState('')
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
+    const id = JSON.parse(localStorage.getItem('user'))._id;
+   
+
 
 
     const addProduct = () =>{
         navigate('/addproduct')
     }
 
-    const startSearch = () =>{
-        console.log(search)
-    }
-
+    
     const getProductList = async() =>{
-        let id = JSON.parse(localStorage.getItem('user'))._id;
         let data = await fetch(`http://localhost:5000/myproduct/${id}`,{method:'get'});
-            data = await data.json();
-            setProductList(data);
-            // console.log(productList);
-
+        data = await data.json();
+        setProductList(data);
+        // console.log(productList);
+        
     }
+    
+    const startSearch = async() => {
+            if(search){
+            let data = await fetch(`http://localhost:5000/searchMyProducts/${search}/${id}`);
+            data = await data.json();
+            console.log(data.length)
+            if(data.length>0){
+                setProductList(data);
+            }
+            else if(data.length == 0){
+                setProductList('');
+            } }
+            else{
+                getProductList();
+            }
+        }
+    
 
     useEffect(()=>{
         getProductList();
-    })
+    },[])
 
     const deleteProduct = async(id) =>{
         await fetch(`http://localhost:5000/deleteProduct/${id}`,{
           method : 'delete'
         })
+        getProductList();
     }
 
 

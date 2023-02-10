@@ -11,26 +11,38 @@ const Products = () =>{
     
     const [productList,setProductList]=useState('')
     const [search, setSearch] = useState('');
-    
-    const startSearch = () =>{
-        console.log(search)
-    }
-
     const userId = JSON.parse(localStorage.getItem('user'))._id;
+    
     const getProductList = async() =>{
         let data = await fetch(`http://localhost:5000/products`,{method:'get'});
-            data = await data.json();
+        data = await data.json();
             if(data){
            data = data.filter((item)=>{
                 return(item.userId!==userId);
             })
             setProductList(data);
-    }}
+        }}
 
-    useEffect(()=>{
+        useEffect(()=>{
         getProductList();
         checkWishlist();
     },[])
+
+    const startSearch = async() => {
+        if(search){
+        let data = await fetch(`http://localhost:5000/searchProducts/${search}/${userId}`);
+        data = await data.json();
+        console.log(data.length)
+        if(data.length>0){
+            setProductList(data);
+        }
+        else if(data.length == 0){
+            setProductList('');
+        } }
+        else{
+            getProductList();
+        }
+    }
 
     const checkWishlist = async() => {
         let data =await fetch(`http://localhost:5000/wishlistCheck`,{
@@ -38,9 +50,9 @@ const Products = () =>{
         })
         data =await data.json();
         IdArray = data;
-
+        
     }
-
+    
     const addToWishlist = async(obj) =>{
         let name = obj.name;
         let price = obj.price;

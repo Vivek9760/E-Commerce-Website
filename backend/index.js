@@ -10,7 +10,7 @@ app.use(cors());
 
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/signup', async(req,res)=>{
     let user = new User(req.body);
     await user.save();
@@ -58,7 +58,6 @@ app.get('/myproduct/:_id',async(req,res)=>{
     else{
         res.send(false);
     }
-
 })
 
 app.delete('/deleteProducts/:id', async(req,res)=>{
@@ -97,6 +96,28 @@ app.get('/products',async(req,res)=>{
 
 })
 
+
+app.get('/searchProducts/:key/:userId',async(req,res)=>{
+    let data = await Product.find({$or:[
+                                        {name:{$regex: new RegExp(req.params.key,'i')}},
+                                        {company:{$regex: new RegExp(req.params.key,'i')}},
+                                        {category:{$regex: new RegExp(req.params.key,'i')}},
+                                        {price:{$regex: new RegExp(req.params.key,'i')}}
+                                       ],userId:{$ne:req.params.userId}
+                                    });
+    res.send(data)
+})
+
+app.get('/searchMyProducts/:key/:userId',async(req,res)=>{
+    let data = await Product.find({$or:[
+                                        {name:{$regex: new RegExp(req.params.key,'i')}},
+                                        {company:{$regex: new RegExp(req.params.key,'i')}},
+                                        {category:{$regex: new RegExp(req.params.key,'i')}},
+                                        {price:{$regex: new RegExp(req.params.key,'i')}}
+                                       ],userId:req.params.userId
+                                    });
+    res.send(data)
+})
 /////////////////////////////////////////////////////////////////////////////////////
 
 app.post('/wishlist',async(req,res)=>{

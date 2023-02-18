@@ -21,7 +21,12 @@ const MyProducts = () =>{
 
     
     const getProductList = async() =>{
-        let data = await fetch(`http://localhost:5000/myproduct/${id}`,{method:'get'});
+        let data = await fetch(`http://localhost:5000/myproduct/${id}`,{method:'get',
+        headers:{
+            "Content-Type":"application/json",
+            authorization: JSON.parse(localStorage.getItem('token'))
+        }
+    });
         data = await data.json();
         setProductList(data);
         // console.log(productList);
@@ -30,7 +35,13 @@ const MyProducts = () =>{
     
     const startSearch = async() => {
             if(search){
-            let data = await fetch(`http://localhost:5000/searchMyProducts/${search}/${id}`);
+            let data = await fetch(`http://localhost:5000/searchMyProducts/${search}/${id}`,{
+                method:'get',
+        headers:{
+            "Content-Type":"application/json",
+            authorization: JSON.parse(localStorage.getItem('token'))
+        }
+            });
             data = await data.json();
             console.log(data.length)
             if(data.length>0){
@@ -51,7 +62,11 @@ const MyProducts = () =>{
 
     const deleteProduct = async(id) =>{
         await fetch(`http://localhost:5000/deleteProduct/${id}`,{
-          method : 'delete'
+          method : 'delete',
+          headers:{
+            "Content-Type":"application/json",
+            authorization:JSON.parse(localStorage.getItem('token'))
+          }
         })
         getProductList();
     }

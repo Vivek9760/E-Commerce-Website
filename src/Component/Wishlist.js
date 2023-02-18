@@ -15,7 +15,13 @@ const Wishlist = () =>{
     
     const startSearch = async() =>{
         if(search){
-            let data = await fetch(`http://localhost:5000/searchWishlist/${search}/${userId}`);
+            let data = await fetch(`http://localhost:5000/searchWishlist/${search}/${userId}`,{
+                method:'get',
+                headers:{
+                    "Content-Type":"application/json",
+        authorization: JSON.parse(localStorage.getItem('token'))
+                }
+            });
             data = await data.json();
             console.log(data.length)
             if(data.length>0){
@@ -35,8 +41,9 @@ const Wishlist = () =>{
             method:'post',
             body:JSON.stringify({userId}),
             headers:{
-                'Content-Type':'application/json'
-            }
+                'Content-Type':'application/json',
+        authorization: JSON.parse(localStorage.getItem('token'))
+    }
         })
         data =await data.json();
         setProductList(data);
@@ -51,8 +58,9 @@ const Wishlist = () =>{
             method:'delete',
             body:JSON.stringify({userId,productId}),
             headers:{
-                'Content-Type':'application/json'
-            }
+                'Content-Type':'application/json',
+        authorization: JSON.parse(localStorage.getItem('token'))
+    }
         })
         data = await data.json()
         if(data){

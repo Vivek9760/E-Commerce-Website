@@ -14,7 +14,12 @@ const Products = () =>{
     const userId = JSON.parse(localStorage.getItem('user'))._id;
     
     const getProductList = async() =>{
-        let data = await fetch(`http://localhost:5000/products`,{method:'get'});
+        let data = await fetch(`http://localhost:5000/products`,{method:'get',
+    headers:{
+        authorization:JSON.parse(localStorage.getItem('token')),
+        "Content-Type":"application/json"
+
+    }});
         data = await data.json();
             if(data){
            data = data.filter((item)=>{
@@ -30,7 +35,13 @@ const Products = () =>{
 
     const startSearch = async() => {
         if(search){
-        let data = await fetch(`http://localhost:5000/searchProducts/${search}/${userId}`);
+        let data = await fetch(`http://localhost:5000/searchProducts/${search}/${userId}`,{
+            method:'get',
+            headers:{
+                "Content-Type" : "application/json",
+                authorization : JSON.parse(localStorage.getItem('token'))
+            }
+        });
         data = await data.json();
         console.log(data.length)
         if(data.length>0){
@@ -46,7 +57,11 @@ const Products = () =>{
 
     const checkWishlist = async() => {
         let data =await fetch(`http://localhost:5000/wishlistCheck`,{
-            method:'post'
+            method:'post',
+            headers:{
+                "Content-Type" : "application/json",
+                authorization : JSON.parse(localStorage.getItem('token'))
+            }
         })
         data =await data.json();
         IdArray = data;
@@ -65,12 +80,13 @@ const Products = () =>{
                 method:'post',
                 body:JSON.stringify({name,price,category,userEmail,userId,company,productId}),
                 headers:{
-                    'Content-Type':'application/json'
-                }
+                    'Content-Type':'application/json',
+                authorization : JSON.parse(localStorage.getItem('token'))
+            }
             })
             data = await data.json()
             if(data){
-            getProductList();
+            startSearch();
         checkWishlist();}
         }
 
@@ -79,12 +95,13 @@ const Products = () =>{
                 method:'delete',
                 body:JSON.stringify({userId,productId}),
                 headers:{
-                    'Content-Type':'application/json'
-                }
+                    'Content-Type':'application/json',
+                authorization : JSON.parse(localStorage.getItem('token'))
+            }
             })
             data = await data.json()
             if(data){
-                getProductList();
+                startSearch();
             checkWishlist();
             }
     }

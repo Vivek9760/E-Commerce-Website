@@ -45,8 +45,9 @@ const UpdateProduct = ()=>{
             method:'put',
             body:JSON.stringify({name,category,company,price}),
             headers:{
-                'Content-Type':'application/json'
-            }
+                'Content-Type':'application/json',
+        authorization: JSON.parse(localStorage.getItem('token'))
+      }
           })
           data = data.json();
           if(data){

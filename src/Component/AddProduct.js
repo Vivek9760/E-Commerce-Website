@@ -32,7 +32,8 @@ const addProduct = async()=>{
             method:'post',
             body:JSON.stringify({name,category,company,price,userId,userEmail}),
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 authorization : JSON.parse(localStorage.getItem('token'))
             }
         }) ;
 

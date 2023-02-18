@@ -40,28 +40,30 @@ const Signup = () => {
       });
       result = await result.json();
       if(!result){
-      console.log(result.email);
+      // console.log(result.email);
     console.log(name.length,email,password,confirmPassword);
 
     let data = await fetch("http://localhost:5000/signup",{
       method:'post',
       body:JSON.stringify({name,email,password}),
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        authorization: JSON.parse(localStorage.getItem('token'))
       }
     })
 
     data = await data.json()
     if(data){
-    localStorage.setItem('user',JSON.stringify(data));
-    console.log(data)
+    localStorage.setItem('user',JSON.stringify(data.data));
+    localStorage.setItem('token',JSON.stringify(data.auth));
+    // console.log(data)
     setName('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');}
   }
     else{
-      console.log(result.email);
+      // console.log(result.email);
       setEmailR('Email already in use'); setEmailError(true);
       setNameR(''); setNameError(false);
       setPasswordR(''); setPasswordError(false);

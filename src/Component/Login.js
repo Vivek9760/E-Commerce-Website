@@ -4,7 +4,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Footer from "./Footer";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-// import { isEmail } from "validator";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,8 +17,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const LogIn = async () => {
+
     if (email.length > 0 && password.length > 0) {
-      // if (isEmail(email)) {
+     
         let result = await fetch("http://localhost:5000/login", {
           method: "post",
           body: JSON.stringify({ email, password }),
@@ -28,24 +28,18 @@ const Login = () => {
           },
         });
         result = await result.json();
-        console.log(result);
         if (result) {
-          localStorage.setItem("user", JSON.stringify(result));
+          localStorage.setItem("user", JSON.stringify(result.data));
+          localStorage.setItem("token",JSON.stringify(result.auth));
           navigate("/");
-          setEmail("");
-          setPassword("");
         } else {
           setEmailR("Check your email & password ");
           setEmailError(true);
           setPasswordError(true);
         }
-      // } else {
-      //   setEmailR("Enter a Valid Email");
-      //   setEmailError(true);
-      //   setPasswordR("");
-      //   setPasswordError(false);
-      // }
-    } else {
+    } 
+    
+    else {
       if (email === "") {
         setEmailR("*Required Field");
         setEmailError(true);

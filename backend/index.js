@@ -5,6 +5,8 @@ require('./dbConnect');
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Wishlist = require('./models/Wishlist');
+const jwt = require('jsonwebtoken');
+const jwtKey = 'vivek';
 app.use(express.json());
 app.use(cors());
 
@@ -15,8 +17,15 @@ app.post('/signup', async(req,res)=>{
     let user = new User(req.body);
     await user.save();
     user = user.toObject();
-    delete user.password
-    res.send(user);
+    delete user.password;
+
+    jwt.sign({user},jwtKey,{expiresIn:'1h'},(err,token)=>{
+        if(err){
+            res.send({user:"Something went wrong"});
+        }
+        res.send({user,auth:token});
+    })
+    
 })
 
 app.post('/login',async(req,res)=>{
@@ -24,13 +33,20 @@ app.post('/login',async(req,res)=>{
     if(data){
     data = data.toObject();
     delete data.password
-    res.send(data);}
+
+    jwt.sign({data},jwtKey,{expiresIn:"1h"},(err,token)=>{
+        if(err){
+            res.send({data:"Something went wrong"});
+        }
+        res.send({data,auth:token})
+    })
+    }
     else{
         res.send(false)
     }
 })
 
-app.delete('/delete/:id',async(req,res)=>{
+app.delete('/delete/:id',verifyToken,async(req,res)=>{
     let data = await User.deleteOne({_id:req.params.id});
     if(data.deletedCount>0){
     res.send(true);
@@ -41,7 +57,7 @@ app.delete('/delete/:id',async(req,res)=>{
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-app.post('/addproduct',async(req,res)=>{
+app.post('/addproduct',verifyToken,async(req,res)=>{
     let data = new Product(req.body);
     await data.save();
     if(data){
@@ -51,7 +67,7 @@ app.post('/addproduct',async(req,res)=>{
     }
 })
 
-app.get('/myproduct/:_id',async(req,res)=>{
+app.get('/myproduct/:_id',verifyToken,async(req,res)=>{
     let data = await Product.find({userId:req.params._id});
     if(data){
     res.send(data)}
@@ -60,22 +76,22 @@ app.get('/myproduct/:_id',async(req,res)=>{
     }
 })
 
-app.delete('/deleteProducts/:id', async(req,res)=>{
+app.delete('/deleteProducts/:id',verifyToken, async(req,res)=>{
     let data = await Product.deleteMany({userId:req.params.id});
     res.send(data)
 })
 
-app.delete('/deleteProduct/:id', async(req,res)=>{
+app.delete('/deleteProduct/:id',verifyToken, async(req,res)=>{
     let data = await Product.deleteOne({_id:req.params.id});
     res.send(data)
 })
 
-app.get('/getProduct/:id',async(req,res)=>{
+app.get('/getProduct/:id',verifyToken,async(req,res)=>{
     let data = await Product.findOne({_id:req.params.id});
     res.send(data);
 })
 
-app.put('/updateProduct/:id',async(req,res)=>{
+app.put('/updateProduct/:id',verifyToken,async(req,res)=>{
     let data = await Product.updateOne({_id:req.params.id},{
         name:req.body.name,
         category:req.body.category,
@@ -86,7 +102,7 @@ app.put('/updateProduct/:id',async(req,res)=>{
     res.send(data);
 })
 
-app.get('/products',async(req,res)=>{
+app.get('/products',verifyToken,async(req,res)=>{
     let data = await Product.find();
     if(data){
     res.send(data)}
@@ -97,7 +113,7 @@ app.get('/products',async(req,res)=>{
 })
 
 
-app.get('/searchProducts/:key/:userId',async(req,res)=>{
+app.get('/searchProducts/:key/:userId',verifyToken,async(req,res)=>{
     let data = await Product.find({$or:[
                                         {name:{$regex: new RegExp(req.params.key,'i')}},
                                         {company:{$regex: new RegExp(req.params.key,'i')}},
@@ -108,7 +124,7 @@ app.get('/searchProducts/:key/:userId',async(req,res)=>{
     res.send(data)
 })
 
-app.get('/searchMyProducts/:key/:userId',async(req,res)=>{
+app.get('/searchMyProducts/:key/:userId',verifyToken,async(req,res)=>{
     let data = await Product.find({$or:[
                                         {name:{$regex: new RegExp(req.params.key,'i')}},
                                         {company:{$regex: new RegExp(req.params.key,'i')}},
@@ -120,18 +136,18 @@ app.get('/searchMyProducts/:key/:userId',async(req,res)=>{
 })
 /////////////////////////////////////////////////////////////////////////////////////
 
-app.post('/wishlist',async(req,res)=>{
+app.post('/wishlist',verifyToken,async(req,res)=>{
     let data = new Wishlist(req.body);
     data.save();
     res.send(data);
 })
 
-app.delete('/wishlist',async(req,res)=>{
+app.delete('/wishlist',verifyToken,async(req,res)=>{
     let data =await Wishlist.deleteOne(req.body);
     res.send(data)
 })
 
-app.post('/wishlistCheck',async(req,res)=>{
+app.post('/wishlistCheck',verifyToken,async(req,res)=>{
     let data =await Wishlist.find(req.body);
     if(data)
     res.send(data)
@@ -139,7 +155,7 @@ app.post('/wishlistCheck',async(req,res)=>{
     res.send(false)
 })
 
-app.get('/searchWishlist/:key/:userId', async(req,res)=>{
+app.get('/searchWishlist/:key/:userId/',verifyToken, async(req,res)=>{
     let data = await Wishlist.find({
         $or : [
             {name : { $regex : new RegExp(req.params.key,'i')}},
@@ -151,6 +167,22 @@ app.get('/searchWishlist/:key/:userId', async(req,res)=>{
 
     res.send(data)
 })
+
+function verifyToken(req,res,next){
+    let token = req.headers['authorization'];
+    if(token){
+        jwt.verify(token,jwtKey,(err,valid)=>{
+            if(err){
+                res.status(403).send("Enter a Valid header");
+            }else{
+                next();
+            }
+        })
+    }
+    else{
+        res.status(404).send("Token Missing");
+    }
+}
 
 
 app.listen(5000)

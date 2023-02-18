@@ -15,10 +15,18 @@ const Profile = () => {
 
     const deleteUser = async() => {
         const result = await fetch(`http://localhost:5000/delete/${id}`,{
-            method:'delete'
+            method:'delete',
+            headers:{
+                'Content-Type':'application/json',
+            authorization : JSON.parse(localStorage.getItem('token'))
+        }
         });
          await fetch(`http://localhost:5000/deleteProducts/${id}`,{
-          method : 'delete'
+          method : 'delete',
+          headers:{
+              'Content-Type':'application/json',
+          authorization : JSON.parse(localStorage.getItem('token'))
+      }
         })
 
     if(result){

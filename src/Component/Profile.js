@@ -28,6 +28,13 @@ const Profile = () => {
           authorization : JSON.parse(localStorage.getItem('token'))
       }
         })
+        await fetch(`http://localhost:5000/wishlists/${id}`,{
+          method : 'delete',
+          headers:{
+              'Content-Type':'application/json',
+          authorization : JSON.parse(localStorage.getItem('token'))
+      }
+    })
 
     if(result){
         setOpen(true);

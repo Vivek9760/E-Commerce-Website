@@ -155,7 +155,7 @@ app.post('/wishlistCheck',verifyToken,async(req,res)=>{
     res.send(false)
 })
 
-app.get('/searchWishlist/:key/:userId/',verifyToken, async(req,res)=>{
+app.get('/searchWishlist/:key/:userId',verifyToken, async(req,res)=>{
     let data = await Wishlist.find({
         $or : [
             {name : { $regex : new RegExp(req.params.key,'i')}},
@@ -167,6 +167,13 @@ app.get('/searchWishlist/:key/:userId/',verifyToken, async(req,res)=>{
 
     res.send(data)
 })
+
+app.delete(`/wishlists/:id`,verifyToken,async(req,res)=>{
+    let data =await Wishlist.deleteMany({userId:req.params.id});
+    res.send(data)
+})
+
+/////////////////////////////////////////////////////////////////////////
 
 function verifyToken(req,res,next){
     let token = req.headers['authorization'];

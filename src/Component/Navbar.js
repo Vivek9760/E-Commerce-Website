@@ -24,9 +24,9 @@ function Navbar(){
          <div className='container_2'>
          <div className='heading-container'>
                 <ButtonGroup variant='contained' size='small' color='warning'>
-                    <Button id="h1" ><Link className='link' to="/">Products</Link></Button>
-                    <Button id="h2" ><Link className='link' to="/myProducts">My Products</Link></Button>
-                    <Button id="h3" ><Link className='link' to="/wishlist">Wishlist</Link></Button>
+                    <Button id="h1" onClick={()=>{navigate('/')}}>Products</Button>
+                    <Button id="h2" onClick={()=>{navigate('/myProducts')}} >My Products</Button>
+                    <Button id="h3" onClick={()=>{navigate('/wishlist')}} >Wishlist</Button>
                     <Button id="h4" endIcon={<Logout id="logout" />} disabled={auth?false:true} color='error' onClick={LogOutUser}>Logout</Button>
                 </ButtonGroup>
             </div>

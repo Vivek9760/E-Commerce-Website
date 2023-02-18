@@ -47,7 +47,7 @@ const Products = () =>{
         if(data.length>0){
             setProductList(data);
         }
-        else if(data.length == 0){
+        else if(data.length === 0){
             setProductList('');
         } }
         else{

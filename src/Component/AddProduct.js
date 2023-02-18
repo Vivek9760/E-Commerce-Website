@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
@@ -27,7 +27,6 @@ const addProduct = async()=>{
     if(name.length>0 && category.length>0 && company.length>0 && price.length>0){
         const userId = JSON.parse(localStorage.getItem('user'))._id;
         const userEmail = JSON.parse(localStorage.getItem('user')).email;
-        console.log(userId)
         let product = await fetch("http://localhost:5000/addproduct",{
             method:'post',
             body:JSON.stringify({name,category,company,price,userId,userEmail}),
@@ -38,11 +37,10 @@ const addProduct = async()=>{
         }) ;
 
         product = await product.json()
-        if(product){
-            console.log(product); 
-            navigate('/myproducts')           
+        if(product){ 
+            navigate('/myproducts');         
         }else{
-            alert("Something Wrong !!!")
+            alert("Something Wrong !!!");
         }
     }
     else{

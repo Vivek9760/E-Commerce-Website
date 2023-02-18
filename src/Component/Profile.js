@@ -17,30 +17,27 @@ const Profile = () => {
         const result = await fetch(`http://localhost:5000/delete/${id}`,{
             method:'delete',
             headers:{
-                'Content-Type':'application/json',
             authorization : JSON.parse(localStorage.getItem('token'))
         }
         });
+
          await fetch(`http://localhost:5000/deleteProducts/${id}`,{
           method : 'delete',
           headers:{
-              'Content-Type':'application/json',
           authorization : JSON.parse(localStorage.getItem('token'))
       }
-        })
+        });
+
         await fetch(`http://localhost:5000/wishlists/${id}`,{
           method : 'delete',
           headers:{
-              'Content-Type':'application/json',
           authorization : JSON.parse(localStorage.getItem('token'))
       }
-    })
+    });
 
     if(result){
         setOpen(true);
-    }   else{
-        console.log("Error")
-    }}
+    } }
 
     const handleClose = () =>{
         setOpen(false);
@@ -52,7 +49,7 @@ const Profile = () => {
     let horizontal = 'right';
 
     const editDetails = () => {
-        navigate('/editProfile')
+        navigate('/editProfile');
     }
 
     return(
@@ -92,4 +89,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default Profile;

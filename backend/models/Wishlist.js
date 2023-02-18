@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const wishlistSchema = new mongoose.Schema({
     name:String,
@@ -12,4 +12,4 @@ const wishlistSchema = new mongoose.Schema({
 
 const Wishlist = mongoose.model('wishlists',wishlistSchema);
 
-module.exports = Wishlist
+module.exports = Wishlist;

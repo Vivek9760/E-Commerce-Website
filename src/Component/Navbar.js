@@ -1,8 +1,7 @@
-
 import { AccountCircle, Logout, Login,AppRegistration } from '@mui/icons-material';
-import { Button, ButtonGroup } from '@mui/material'
-import { Link,useNavigate } from 'react-router-dom'
-import './Navbar.css'
+import { Button, ButtonGroup } from '@mui/material';
+import { Link,useNavigate } from 'react-router-dom';
+import './Navbar.css';
 
 function Navbar(){
 
@@ -58,4 +57,4 @@ function Navbar(){
     )
 }
 
-export default Navbar
+export default Navbar;

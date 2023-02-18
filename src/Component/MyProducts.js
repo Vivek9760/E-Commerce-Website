@@ -1,5 +1,5 @@
 import { Grid, Paper,InputBase} from "@mui/material";
-import { Add, CurrencyRupee,Menu,Search, Delete, Sell, DriveFileRenameOutline } from "@mui/icons-material";
+import { Add, CurrencyRupee, Menu, Search, Delete, Sell, DriveFileRenameOutline } from "@mui/icons-material";
 import './MyProducts.css';
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
@@ -12,14 +12,10 @@ const MyProducts = () =>{
     const navigate = useNavigate();
     const id = JSON.parse(localStorage.getItem('user'))._id;
    
-
-
-
     const addProduct = () =>{
-        navigate('/addproduct')
+        navigate('/addproduct');
     }
 
-    
     const getProductList = async() =>{
         let data = await fetch(`http://localhost:5000/myproduct/${id}`,{method:'get',
         headers:{
@@ -28,9 +24,7 @@ const MyProducts = () =>{
         }
     });
         data = await data.json();
-        setProductList(data);
-        // console.log(productList);
-        
+        setProductList(data);        
     }
     
     const startSearch = async() => {
@@ -38,18 +32,17 @@ const MyProducts = () =>{
             let data = await fetch(`http://localhost:5000/searchMyProducts/${search}/${id}`,{
                 method:'get',
         headers:{
-            "Content-Type":"application/json",
             authorization: JSON.parse(localStorage.getItem('token'))
         }
             });
             data = await data.json();
-            console.log(data.length)
             if(data.length>0){
                 setProductList(data);
             }
             else if(data.length === 0){
                 setProductList('');
-            } }
+            }}
+
             else{
                 getProductList();
             }
@@ -61,13 +54,14 @@ const MyProducts = () =>{
     },[])
 
     const deleteProduct = async(id) =>{
+
         await fetch(`http://localhost:5000/deleteProduct/${id}`,{
           method : 'delete',
           headers:{
-            "Content-Type":"application/json",
             authorization:JSON.parse(localStorage.getItem('token'))
           }
-        })
+        });
+
         getProductList();
     }
 

@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import Login from './Component/Login';
 import Navbar from './Component/Navbar';
 import PrivateComponent from './Component/PrivateComponent';
@@ -13,6 +12,7 @@ import Wishlist from './Component/Wishlist';
 import EditProfile from './Component/EditProfile';
 
 function App() {
+
   return (<>
    <BrowserRouter>
    <Navbar />

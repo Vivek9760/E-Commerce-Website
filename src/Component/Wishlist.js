@@ -9,11 +9,10 @@ const Wishlist = () =>{
     const [productList,setProductList]=useState('')
     const [search, setSearch] = useState('');
 
-
     const userId = JSON.parse(localStorage.getItem('user'))._id;
 
-    
     const startSearch = async() =>{
+
         if(search){
             let data = await fetch(`http://localhost:5000/searchWishlist/${search}/${userId}`,{
                 method:'get',
@@ -22,8 +21,9 @@ const Wishlist = () =>{
         authorization: JSON.parse(localStorage.getItem('token'))
                 }
             });
+
             data = await data.json();
-            console.log(data.length)
+
             if(data.length>0){
                 setProductList(data);
             }
@@ -59,10 +59,12 @@ const Wishlist = () =>{
             body:JSON.stringify({userId,productId}),
             headers:{
                 'Content-Type':'application/json',
-        authorization: JSON.parse(localStorage.getItem('token'))
-    }
-        })
-        data = await data.json()
+                authorization: JSON.parse(localStorage.getItem('token'))
+                }
+        });
+
+        data = await data.json();
+
         if(data){
            startSearch();
         }

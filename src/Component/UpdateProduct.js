@@ -24,9 +24,14 @@ const UpdateProduct = ()=>{
     
     const getProductData = async() =>{
         let data = await fetch(`http://localhost:5000/getProduct/${id}`,{
-            method:'get'});
+            method:'get',
+            headers:{
+                authorization: JSON.parse(localStorage.getItem('token'))
+            }
+          });
+
             data = await data.json();
-            console.log(data)
+            
             if(data){
                 setName(data.name);
                 setCategory(data.category);
@@ -40,16 +45,19 @@ const UpdateProduct = ()=>{
     },[])
   
   const updateProduct = async()=>{
+
       if(name.length>0 && category.length>0 && company.length>0 && price.length>0){
           let data = await fetch(`http://localhost:5000/updateProduct/${id}`,{
             method:'put',
             body:JSON.stringify({name,category,company,price}),
             headers:{
                 'Content-Type':'application/json',
-        authorization: JSON.parse(localStorage.getItem('token'))
-      }
-          })
+                authorization: JSON.parse(localStorage.getItem('token'))
+                 }
+          });
+
           data = data.json();
+
           if(data){
         navigate('/myproducts');
           }
@@ -58,7 +66,7 @@ const UpdateProduct = ()=>{
           if(name===""){
               setNameR('*Required Field');
               setNameError(true);
-            }else{setNameR(''); setNameError(false)}
+            }else{setNameR(''); setNameError(false);}
         
             if(category===""){
               setCategoryR('*Required Field');
@@ -109,4 +117,4 @@ const UpdateProduct = ()=>{
     )
 }
 
-export default UpdateProduct
+export default UpdateProduct;

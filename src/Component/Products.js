@@ -14,13 +14,15 @@ const Products = () =>{
     const userId = JSON.parse(localStorage.getItem('user'))._id;
     
     const getProductList = async() =>{
-        let data = await fetch(`http://localhost:5000/products`,{method:'get',
-    headers:{
-        authorization:JSON.parse(localStorage.getItem('token')),
-        "Content-Type":"application/json"
+        let data = await fetch(`http://localhost:5000/products`,{
+            method:'get',
+            headers:{
+                    authorization:JSON.parse(localStorage.getItem('token'))
+                    }
+                });
 
-    }});
         data = await data.json();
+        
             if(data){
            data = data.filter((item)=>{
                 return(item.userId!==userId);
@@ -38,12 +40,10 @@ const Products = () =>{
         let data = await fetch(`http://localhost:5000/searchProducts/${search}/${userId}`,{
             method:'get',
             headers:{
-                "Content-Type" : "application/json",
                 authorization : JSON.parse(localStorage.getItem('token'))
             }
         });
         data = await data.json();
-        console.log(data.length)
         if(data.length>0){
             setProductList(data);
         }
@@ -83,14 +83,17 @@ const Products = () =>{
                     'Content-Type':'application/json',
                 authorization : JSON.parse(localStorage.getItem('token'))
             }
-            })
-            data = await data.json()
+            });
+
+            data = await data.json();
+
             if(data){
             startSearch();
-        checkWishlist();}
+            checkWishlist();}
         }
 
     const removeFromWishlist = async(productId) =>{
+
             let data = await fetch('http://localhost:5000/wishlist',{
                 method:'delete',
                 body:JSON.stringify({userId,productId}),
@@ -98,8 +101,10 @@ const Products = () =>{
                     'Content-Type':'application/json',
                 authorization : JSON.parse(localStorage.getItem('token'))
             }
-            })
-            data = await data.json()
+            });
+
+            data = await data.json();
+
             if(data){
                 startSearch();
             checkWishlist();

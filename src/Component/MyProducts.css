@@ -1,5 +1,4 @@
 .card-container{
-/* border: 2px solid black; */
 background-color: rgb(204, 224, 241);
 width: 100vw;
 min-height: 81.1vh;
@@ -11,18 +10,15 @@ overflow: auto;
     display: flex;
     justify-content: center;
     padding: 10px 0px;
-    /* border: 1px solid black; */
 }
 
 .card-main-container{
-    /* border: 2px solid red; */
     margin: 10px;
     min-height: 75vh;
     height: 75vh;
 }
 
 .card{
-    /* border: 2px solid black ; */
     background-color: #E65100;
     box-shadow: 2px 2px 2px black;
     border-radius: 15px;
@@ -34,7 +30,6 @@ overflow: auto;
 }
 
 .category{
-/* border: 1px solid black; */
 margin: 0;
 padding: 2px 10px;
 overflow: hidden;
@@ -49,20 +44,17 @@ overflow: hidden;
 }
 
 .name{
-/* border: 1px solid black; */
 text-align: center;
 margin-top: 2px;
 overflow: hidden;
 
 }
 .p2{
-/* border: 1px solid black; */
    margin: 8px 0px;
    color: black;
 }
 
 .company{
-/* border: 1px solid black; */
 text-align: right;
 overflow: hidden;
 }
@@ -73,7 +65,6 @@ overflow: hidden;
 }
 
 .email{
-/* border: 1px solid black; */
 text-align: center;
 overflow: hidden;
 }
@@ -81,14 +72,11 @@ overflow: hidden;
     margin: 0;
     margin-top: 5px;
     margin-bottom: 10px;
-    /* border: 2px solid green; */
 }
 .mailto{
     color: #1B5E20;
     text-decoration: none;
     margin: 0;
-    /* border: 2px solid black;s */
-
 }
 
 
@@ -98,7 +86,6 @@ overflow: hidden;
 }
 
 .price{
-    /* border: 1px solid black; */
     position: relative;
    display: inline;
 }
@@ -127,7 +114,6 @@ overflow: hidden;
 }
 
 #wishlist-Icon{
-    /* border: 2px solid red; */
    position: absolute;
    top: 8px;
    right: 30px;

@@ -7,4 +7,4 @@ const PrivateComponent = () =>{
     )
 }
 
-export default PrivateComponent
+export default PrivateComponent;

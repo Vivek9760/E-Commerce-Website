@@ -1,5 +1,4 @@
 .ft-c{
-    /* border: 2px solid black; */
     text-align: center;
     width: 100vw;
     height: 7vh;
@@ -9,7 +8,6 @@
 }
 
 .ft-m-c{
-    /* border: 2px solid red; */
     display: inline-block;
     width: 50%;
     height: 100%;

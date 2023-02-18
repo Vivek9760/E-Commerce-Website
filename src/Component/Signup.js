@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { TextField, Container, Button } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
@@ -30,6 +30,7 @@ const Signup = () => {
 
   const saveUserInfo = async() => {
     if(name.length>0 && email.length>0 && password.length>0 && confirmPassword.length>0 && password === confirmPassword ){
+
       if (isEmail(email)) {
       let result = await fetch("http://localhost:5000/login",{
         method:'post',
@@ -39,28 +40,25 @@ const Signup = () => {
         }
       });
       result = await result.json();
-      if(!result){
-      // console.log(result.email);
-    console.log(name.length,email,password,confirmPassword);
 
+      if(!result){
     let data = await fetch("http://localhost:5000/signup",{
       method:'post',
       body:JSON.stringify({name,email,password}),
       headers:{
         'Content-Type':'application/json'
       }
-    })
+    });
 
-    data = await data.json()
+    data = await data.json();
+
     if(data){
     localStorage.setItem('user',JSON.stringify(data.user));
     localStorage.setItem('token',JSON.stringify(data.auth));
-    // console.log(data)
     navigate("/");
   }
   }
     else{
-      // console.log(result.email);
       setEmailR('Email already in use'); setEmailError(true);
       setNameR(''); setNameError(false);
       setPasswordR(''); setPasswordError(false);
@@ -98,7 +96,6 @@ const Signup = () => {
       setConfirmPasswordR('Password not matched');
       setConfirmPasswordError(true);
     }else{setConfirmPasswordR(''); setConfirmPasswordError(false);}
-
   }
 }
 

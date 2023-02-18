@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { TextField, Container, Button } from "@mui/material";
+import { TextField, Container, Button, Snackbar, Alert } from "@mui/material";
 import Footer from "./Footer";
 import "./Login.css";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -8,6 +8,7 @@ import { isEmail } from 'validator';
 
 const Signup = () => {
 
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password,setPassword] = useState('');
@@ -25,6 +26,7 @@ const Signup = () => {
   const navigate = useNavigate('/');
 
  const id = JSON.parse(localStorage.getItem('user'))._id
+ const userEmail =  JSON.parse(localStorage.getItem('user')).email
 //  console.log(id)
 const getInfo = async()=>{
     let data = await fetch(`http://localhost:5000/editInfo/${id}`,{
@@ -56,8 +58,19 @@ const getInfo = async()=>{
         }
       });
       result = await result.json();
-      if(!result){
-    console.log(name.length,email,password,confirmPassword);
+      if(!result || email===userEmail){
+        let data = await fetch(`http://localhost:5000/updateInfo/${id}`,{
+          method:'put',
+          body:JSON.stringify({name,email,password}),
+          headers:{
+            'Content-Type':'application/json',
+            authorization : JSON.parse(localStorage.getItem('token'))
+          }
+        });
+        data = await data.json()
+        setOpen(true)
+        
+        
   }
     else{
       setEmailR('Email already in use'); setEmailError(true);
@@ -101,6 +114,14 @@ const getInfo = async()=>{
   }
 }
 
+const handleClose = () =>{
+  setOpen(false);
+  localStorage.clear();
+  navigate('/login');
+}
+
+let vertical = 'top';
+let horizontal = 'right';
 
   return (
     <>
@@ -129,6 +150,13 @@ const getInfo = async()=>{
         </div>
       </Container>
     </div>
+
+    <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1500} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" >
+          Profile Updated successfully
+        </Alert>
+      </Snackbar>
+
     <Footer />
     </>
   );

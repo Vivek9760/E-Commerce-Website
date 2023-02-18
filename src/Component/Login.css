@@ -18,19 +18,6 @@ h1{
     overflow: hidden;
     min-height: 400px;
 }
-/* 
-.Login-container::before{
-    content: " ";
-    background-image: url("./login-bg.jpg");
-    background-size: cover;
-    height: 85vh;
-    position: absolute;
-    top: 48px;
-    width: 100vw;
-    z-index: -1;
-    opacity: 0.9;
-    min-height: 400px;
-} */
 
 .text-field-container{
     margin: 15px;
@@ -53,9 +40,6 @@ h1{
     padding: 7.8px;
     margin-left: -38px;
     opacity: 0.6;
-    /* border: 1px #6c6b6b solid;
-    border-radius: 100px; */
-   
 }
 
 .text-deleteBtn-container{

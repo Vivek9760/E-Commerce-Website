@@ -55,6 +55,12 @@ app.delete('/delete/:id',verifyToken,async(req,res)=>{
     }
 })
 
+app.get('/editInfo/:id',verifyToken,async(req,res)=>{
+    let data = await User.findOne({_id:req.params.id});
+    res.send(data);
+
+})
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 app.post('/addproduct',verifyToken,async(req,res)=>{

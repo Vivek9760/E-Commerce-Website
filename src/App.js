@@ -9,7 +9,8 @@ import MyProducts from './Component/MyProducts';
 import AddProduct from './Component/AddProduct';
 import UpdateProduct from './Component/UpdateProduct';
 import Products from './Component/Products';
-import Wishlist from './Component/Wishlist'
+import Wishlist from './Component/Wishlist';
+import EditProfile from './Component/EditProfile';
 
 function App() {
   return (<>
@@ -23,6 +24,7 @@ function App() {
     <Route path='/profile' element={<Profile />} />
     <Route path='/addproduct' element={<AddProduct />} />
     <Route path='/updateProduct/:id' element={<UpdateProduct />} />
+    <Route path='/editProfile' element={<EditProfile />} />
     </Route>
     <Route path='/login' element={<Login />} />
     <Route path='/signup' element={<Signup />} />

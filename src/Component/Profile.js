@@ -51,6 +51,10 @@ const Profile = () => {
     let vertical = 'top';
     let horizontal = 'right';
 
+    const editDetails = () => {
+        navigate('/editProfile')
+    }
+
     return(
         <>
         <div className='Login-container'>
@@ -64,7 +68,7 @@ const Profile = () => {
             <TextField color="error" size="small"value={email}   label="E-mail" type="email" />
             </div>
             <div className="text-btn-container">
-              <Button startIcon={<Edit />} variant="contained" color="success" size="small">
+              <Button startIcon={<Edit />} onClick={editDetails} variant="contained" color="success" size="small">
                 Edit Profile
               </Button>
             </div>

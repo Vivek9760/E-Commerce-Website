@@ -169,7 +169,7 @@ app.get('/searchWishlist/:key/:userId',verifyToken, async(req,res)=>{
     let data = await Wishlist.find({
         $or : [
             {name : { $regex : new RegExp(req.params.key,'i')}},
-            {comapny : { $regex : new RegExp(req.params.key,'i')}},
+            {company : { $regex : new RegExp(req.params.key,'i')}},
             {category:{$regex: new RegExp(req.params.key,'i')}},
             {price:{$regex: new RegExp(req.params.key,'i')}}
            ],userId:req.params.userId
